@@ -11,11 +11,11 @@
 		7A8662621BE3ED700002D494 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662611BE3ED700002D494 /* MasterViewController.swift */; };
 		7A8662641BE3ED700002D494 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662631BE3ED700002D494 /* DetailViewController.swift */; };
 		7A8662671BE3ED700002D494 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A8662651BE3ED700002D494 /* Main.storyboard */; };
-		7A8662691BE3ED700002D494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8662681BE3ED700002D494 /* Assets.xcassets */; };
 		7A86626C1BE3ED700002D494 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A86626A1BE3ED700002D494 /* LaunchScreen.storyboard */; };
 		7A8662771BE3ED700002D494 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662761BE3ED700002D494 /* BookTests.swift */; };
 		7A8662821BE3ED700002D494 /* BookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662811BE3ED700002D494 /* BookUITests.swift */; };
 		7A8662931BE41C270002D494 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662921BE41C270002D494 /* Book.swift */; };
+		7A86FB301BE7F96B00E476D1 /* projectAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A86FB2F1BE7F96B00E476D1 /* projectAssets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +41,6 @@
 		7A8662611BE3ED700002D494 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		7A8662631BE3ED700002D494 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7A8662661BE3ED700002D494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7A8662681BE3ED700002D494 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A86626B1BE3ED700002D494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7A86626D1BE3ED700002D494 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A8662721BE3ED700002D494 /* BookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +50,7 @@
 		7A8662811BE3ED700002D494 /* BookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookUITests.swift; sourceTree = "<group>"; };
 		7A8662831BE3ED700002D494 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A8662921BE41C270002D494 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		7A86FB2F1BE7F96B00E476D1 /* projectAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = projectAssets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +81,7 @@
 		7A8662531BE3ED700002D494 = {
 			isa = PBXGroup;
 			children = (
+				7A86FB2F1BE7F96B00E476D1 /* projectAssets.xcassets */,
 				7A86625E1BE3ED700002D494 /* Book */,
 				7A8662751BE3ED700002D494 /* BookTests */,
 				7A8662801BE3ED700002D494 /* BookUITests */,
@@ -106,7 +107,6 @@
 				7A8662631BE3ED700002D494 /* DetailViewController.swift */,
 				7A8662651BE3ED700002D494 /* Main.storyboard */,
 				7A8662921BE41C270002D494 /* Book.swift */,
-				7A8662681BE3ED700002D494 /* Assets.xcassets */,
 				7A86626A1BE3ED700002D494 /* LaunchScreen.storyboard */,
 				7A86626D1BE3ED700002D494 /* Info.plist */,
 			);
@@ -236,7 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A86626C1BE3ED700002D494 /* LaunchScreen.storyboard in Resources */,
-				7A8662691BE3ED700002D494 /* Assets.xcassets in Resources */,
+				7A86FB301BE7F96B00E476D1 /* projectAssets.xcassets in Resources */,
 				7A8662671BE3ED700002D494 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,6 +492,7 @@
 				7A8662881BE3ED700002D494 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A8662891BE3ED700002D494 /* Build configuration list for PBXNativeTarget "BookTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +501,7 @@
 				7A86628B1BE3ED700002D494 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A86628C1BE3ED700002D494 /* Build configuration list for PBXNativeTarget "BookUITests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +510,7 @@
 				7A86628E1BE3ED700002D494 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

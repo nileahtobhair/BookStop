@@ -35,24 +35,25 @@ class DetailViewController: UIViewController {
         // Update the user interface for the detail item.
         if let detail = self.detailItem {
             if let label = self.detailDescriptionLabel {
+                label.adjustsFontSizeToFitWidth = true
                 label.text = detail.author
-                print("in detail view - detail item is \(self.detailItem)")
-                
             }
             if let label = self.priceLabel {
+                label.adjustsFontSizeToFitWidth = true
                 label.text = "Price     :  "+String(detail.price/100) + "      (" + detail.currencyCode + ")"
                 print(detail.price)
             }
             if let label = self.isbnLabel {
+                label.adjustsFontSizeToFitWidth = true
                 label.text = "ISBN: "+detail.isbn
             }
             if let label = self.currencyLabel {
+                label.adjustsFontSizeToFitWidth = true
                 label.text = detail.currencyCode
             }
             if let label = self.bookTitleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.text = detail.title
-                print("setting title \(detail.title)")
                 
             }
             if let _ = self.imageView {
@@ -60,6 +61,18 @@ class DetailViewController: UIViewController {
                     if let data = NSData(contentsOfURL: url){
                         imageView.contentMode = UIViewContentMode.ScaleAspectFit
                         imageView.image = UIImage(data: data)
+                            
+                        print(url)
+                        if (imageView.image != nil){
+                            print("there's an image")
+                        }
+                        else{
+                            print("no image found")
+                        }
+                       
+                    }
+                    else{
+                        print("no image found")
                     }
                 }
             }
