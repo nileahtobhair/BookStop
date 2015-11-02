@@ -40,16 +40,17 @@ class DetailViewController: UIViewController {
                 
             }
             if let label = self.priceLabel {
-                label.text = String(detail.price/100) + "      (" + detail.currencyCode + ")"
+                label.text = "Price     :  "+String(detail.price/100) + "      (" + detail.currencyCode + ")"
                 print(detail.price)
             }
             if let label = self.isbnLabel {
-                label.text = detail.isbn
+                label.text = "ISBN: "+detail.isbn
             }
             if let label = self.currencyLabel {
                 label.text = detail.currencyCode
             }
             if let label = self.bookTitleLabel {
+                label.adjustsFontSizeToFitWidth = true
                 label.text = detail.title
                 print("setting title \(detail.title)")
                 

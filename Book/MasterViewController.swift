@@ -67,7 +67,7 @@ class MasterViewController: UITableViewController {
     } // end of api call function
     
     
-    func getDescription(id:String)  {
+   /* func getDescription(id:String)  {
         let session = NSURLSession.sharedSession()
         print(id)
         
@@ -99,7 +99,7 @@ class MasterViewController: UITableViewController {
             }
         })
         dataTask.resume()
-    } // end of api call function
+    } // end of api call function*/
     
     
     override func viewDidLoad() {
@@ -146,18 +146,20 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //self.tableView.separatorStyle = .None
+        self.tableView.separatorStyle = .None  //remove lines in table
+       // self.tableView.separatorColor = c
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let object = bookShelf[indexPath.row]
         cell.textLabel!.text = object.title
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
+        
+        let label = UILabel(frame: CGRect(x:17, y:17, width:200, height:25))
+       // let label = UILabel()
+        label.text = object.author
+        label.font = UIFont(name: label.font.fontName, size: 5)
+        cell.addSubview(label)
         cell.imageView?.frame = CGRectMake( 0, 0, 50, 55 );
-        if let url = NSURL(string: object.imageUrl) {
-            if var _ = NSData(contentsOfURL: url){
-                cell.contentMode = UIViewContentMode.ScaleAspectFit
-                
-                // cell.imageView?.image = UIImage(data: data)
-            }
-        }
+      
         return cell
     }
 }

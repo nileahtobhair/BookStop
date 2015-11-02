@@ -39,7 +39,7 @@
                                     <constraint firstAttribute="height" constant="21" id="Cdw-SO-WZz"/>
                                     <constraint firstAttribute="width" constant="760" id="h9B-kv-A44"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
