@@ -16,24 +16,23 @@ struct Bookk{
     var currencyCode: String
     var imageUrl: String
     var price: Double
+    var description: String
     
 }
 
 
 class MasterViewController: UITableViewController {
-    
-    
-    
+
     var detailViewController: DetailViewController? = nil
-    var objects = [Bookk]()
+    var bookShelf = [Bookk]()
     
-    let url = NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/books")
+    var url = NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/books")
     
     var listOfBooks : NSMutableArray = []
     
-    var bookShelf = [String: Bookk]()
+  //  var bookShelf = [String: Bookk]()
     
-    func api()  {
+    func bookModel()  {
         let session = NSURLSession.sharedSession()
         let dataTask = session.dataTaskWithURL(NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/books")!, completionHandler: { (data: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
             
@@ -42,7 +41,7 @@ class MasterViewController: UITableViewController {
             }
                 
             else{
-                if let _ = data{
+                if var _ = data{
                     do {
                         self.listOfBooks = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! NSMutableArray
                         for book in self.listOfBooks{
@@ -52,10 +51,47 @@ class MasterViewController: UITableViewController {
                                 isbn:book["isbn"] as! String,
                                 currencyCode:book["currencyCode"] as! String,
                                 imageUrl:"http://covers.openlibrary.org/b/isbn/" + (book["isbn"] as! String) + "-L.jpg",
-                                price:book["price"] as! Double)
+                                price:book["price"] as! Double,
+                                description:"")
                                 
                             )
                         }
+                      //  self.getDescription("200")
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+        })
+        dataTask.resume()
+    } // end of api call function
+    
+    
+    func getDescription(id:String)  {
+        let session = NSURLSession.sharedSession()
+        print(id)
+        
+        let dataTask = session.dataTaskWithURL(NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/book/300")!, completionHandler: { (data: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
+            
+            if let unwrappedError = error {
+                print("error=\(unwrappedError)")
+            }
+                
+            else{
+                if var _ = data{
+                    do {
+                        let JSONInfo = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                        print(JSONInfo)
+                        let description:String = JSONInfo["description"] as! String
+                        let id:String = String(JSONInfo["id"])
+                     //  print(description)
+                        print(id)
+                       // for(var i:Int=0;i<self.objects.count;i++){
+                       //     print(self.objects[i].id)
+                       //     self.objects[i].description = description
+                            
+                            
+                      //  }
                     } catch {
                         print(error)
                     }
@@ -72,7 +108,7 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
-        api()
+        bookModel()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -86,7 +122,7 @@ class MasterViewController: UITableViewController {
     }
     
     func insertNewObject(sender: Bookk) {
-        objects.insert(sender, atIndex: 0)
+        bookShelf.insert(sender, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         
@@ -95,7 +131,7 @@ class MasterViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] //was date
+                let object = bookShelf[indexPath.row] //was date
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
@@ -106,17 +142,17 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return bookShelf.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //self.tableView.separatorStyle = .None
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        let object = objects[indexPath.row]
-        cell.textLabel!.text = object.title //pull the tile from the NSObject representing a book
+        let object = bookShelf[indexPath.row]
+        cell.textLabel!.text = object.title
         cell.imageView?.frame = CGRectMake( 0, 0, 50, 55 );
         if let url = NSURL(string: object.imageUrl) {
-            if let _ = NSData(contentsOfURL: url){
+            if var _ = NSData(contentsOfURL: url){
                 cell.contentMode = UIViewContentMode.ScaleAspectFit
                 
                 // cell.imageView?.image = UIImage(data: data)

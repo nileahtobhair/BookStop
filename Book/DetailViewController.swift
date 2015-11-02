@@ -40,7 +40,7 @@ class DetailViewController: UIViewController {
                 
             }
             if let label = self.priceLabel {
-                label.text = String(detail.price)
+                label.text = String(detail.price/100) + "      (" + detail.currencyCode + ")"
                 print(detail.price)
             }
             if let label = self.isbnLabel {
