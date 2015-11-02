@@ -23,7 +23,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var priceLabel: UILabel!
     
-    var detailItem: Bookk? {
+    var detailItem: Book? {
         didSet {
             // Update the view.
             print("setting label in detail view")
@@ -36,16 +36,21 @@ class DetailViewController: UIViewController {
         if let detail = self.detailItem {
             if let label = self.detailDescriptionLabel {
                 label.adjustsFontSizeToFitWidth = true
+                label.sizeToFit()
                 label.text = detail.author
+                label.font = UIFont(name: "Georgia", size: 20)
+                label.minimumScaleFactor = 0.5
             }
             if let label = self.priceLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.text = "Price     :  "+String(detail.price/100) + "      (" + detail.currencyCode + ")"
-                print(detail.price)
+                label.sizeToFit()
+                label.minimumScaleFactor = 0.5
             }
             if let label = self.isbnLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.text = "ISBN: "+detail.isbn
+                label.minimumScaleFactor = 0.5
             }
             if let label = self.currencyLabel {
                 label.adjustsFontSizeToFitWidth = true

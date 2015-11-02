@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Bookk{
+struct Book{
     var author:String
     var title:String
     var id:String
@@ -24,28 +24,24 @@ struct Bookk{
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var bookShelf = [Bookk]()
+    var bookShelf = [Book]()
     
     var url = NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/books")
     
     var listOfBooks : NSMutableArray = []
-    
-  //  var bookShelf = [String: Bookk]()
-    
+   
     func bookModel()  {
         let session = NSURLSession.sharedSession()
         let dataTask = session.dataTaskWithURL(NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/books")!, completionHandler: { (data: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
-            
             if let unwrappedError = error {
                 print("error=\(unwrappedError)")
             }
-                
             else{
                 if var _ = data{
                     do {
                         self.listOfBooks = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! NSMutableArray
                         for book in self.listOfBooks{
-                            self.insertNewObject(Bookk(author: book["author"] as! String,
+                            self.insertNewObject(Book(author: book["author"] as! String,
                                 title: book["title"] as! String,
                                 id: String(book["id"]!!),
                                 isbn:book["isbn"] as! String,
@@ -53,10 +49,8 @@ class MasterViewController: UITableViewController {
                                 imageUrl:"http://covers.openlibrary.org/b/isbn/" + (book["isbn"] as! String) + "-L.jpg",
                                 price:book["price"] as! Double,
                                 description:"")
-                                
                             )
                         }
-                      //  self.getDescription("200")
                     } catch {
                         print(error)
                     }
@@ -66,42 +60,6 @@ class MasterViewController: UITableViewController {
         dataTask.resume()
     } // end of api call function
     
-    
-   /* func getDescription(id:String)  {
-        let session = NSURLSession.sharedSession()
-        print(id)
-        
-        let dataTask = session.dataTaskWithURL(NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/book/300")!, completionHandler: { (data: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
-            
-            if let unwrappedError = error {
-                print("error=\(unwrappedError)")
-            }
-                
-            else{
-                if var _ = data{
-                    do {
-                        let JSONInfo = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
-                        print(JSONInfo)
-                        let description:String = JSONInfo["description"] as! String
-                        let id:String = String(JSONInfo["id"])
-                     //  print(description)
-                        print(id)
-                       // for(var i:Int=0;i<self.objects.count;i++){
-                       //     print(self.objects[i].id)
-                       //     self.objects[i].description = description
-                            
-                            
-                      //  }
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
-        })
-        dataTask.resume()
-    } // end of api call function*/
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let split = self.splitViewController {
@@ -109,19 +67,22 @@ class MasterViewController: UITableViewController {
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         bookModel()
+        self.tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
+        print("in viewWillAppear")
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
+        print("didReceiveMemoryWarning")
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func insertNewObject(sender: Bookk) {
+    func insertNewObject(sender: Book) {
         bookShelf.insert(sender, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -147,18 +108,18 @@ class MasterViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         self.tableView.separatorStyle = .None  //remove lines in table
-       // self.tableView.separatorColor = c
+    
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let object = bookShelf[indexPath.row]
         cell.textLabel!.text = object.title
         cell.textLabel?.adjustsFontSizeToFitWidth = true
-        
-        let label = UILabel(frame: CGRect(x:17, y:17, width:200, height:25))
+        let label = UILabel(frame: CGRect(x:20, y:50, width:200, height:25))
        // let label = UILabel()
         label.text = object.author
-        label.font = UIFont(name: label.font.fontName, size: 5)
+        label.font = UIFont(name: "GillSans-Italic", size: 10)
         cell.addSubview(label)
         cell.imageView?.frame = CGRectMake( 0, 0, 50, 55 );
+        cell.sizeToFit()
       
         return cell
     }
