@@ -15,8 +15,6 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var isbnLabel: UILabel!
     
-    @IBOutlet weak var currencyLabel: UILabel!
-    
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var bookTitleLabel: UILabel!
@@ -36,7 +34,7 @@ class DetailViewController: UIViewController {
                 label.adjustsFontSizeToFitWidth = true
                 label.sizeToFit()
                 label.text = detail.author
-                label.font = UIFont(name: "Georgia", size: 20)
+                label.font = UIFont(name: "Baskerville-SemiBoldItalic", size: 20)
                 label.minimumScaleFactor = 0.5
             }
             if let label = self.priceLabel {
@@ -48,18 +46,16 @@ class DetailViewController: UIViewController {
             if let label = self.isbnLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.text = "ISBN: "+detail.isbn
-                label.minimumScaleFactor = 0.5
-            }
-            if let label = self.currencyLabel {
-                label.adjustsFontSizeToFitWidth = true
-                label.text = detail.currencyCode
+                label.font = UIFont(name: "AvenirNext-Regular", size: 20)
+               // label.minimumScaleFactor = 0.5
             }
             if let label = self.bookTitleLabel {
+                //AvenirNextCondensed-UltraLight
                 label.adjustsFontSizeToFitWidth = true
                 label.text = detail.title
+                label.font = UIFont(name: "AvenirNext-Regular", size: 30)
                 label.numberOfLines = 0
-                label.sizeToFit()
-                
+              //  label.sizeToFit()
             }
             if let _ = self.imageView {
                 if let url = NSURL(string: detail.imageUrl) {

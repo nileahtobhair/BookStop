@@ -20,16 +20,13 @@ struct Book{
     
 }
 
-
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var bookShelf = [Book]()
-    
-    var url = NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/books")
-    
     var listOfBooks : NSMutableArray = []
    
+    //func to populate the book shelf with books from the BookServerAPI
     func bookModel()  {
         let session = NSURLSession.sharedSession()
         let dataTask = session.dataTaskWithURL(NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/books")!, completionHandler: { (data: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
@@ -51,6 +48,7 @@ class MasterViewController: UITableViewController {
                                 description:"")
                             )
                         }
+                        self.tableView.reloadData()
                     } catch {
                         print(error)
                     }
@@ -58,8 +56,9 @@ class MasterViewController: UITableViewController {
             }
         })
         dataTask.resume()
-    } // end of api call function
+    } // end of bookModel
     
+    //on startup
     override func viewDidLoad() {
         super.viewDidLoad()
         if let split = self.splitViewController {
@@ -67,7 +66,6 @@ class MasterViewController: UITableViewController {
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         bookModel()
-        self.tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -79,9 +77,9 @@ class MasterViewController: UITableViewController {
         bookShelf.insert(sender, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        
     }
     
+    //change controller, view
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
@@ -99,21 +97,18 @@ class MasterViewController: UITableViewController {
         return bookShelf.count
     }
     
+    //insert new book into tableView
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        self.tableView.separatorStyle = .None  //remove lines in table
-    
+        self.tableView.separatorStyle = .None  //remove seperator lines in table
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let object = bookShelf[indexPath.row]
         cell.textLabel!.text = object.title
         cell.textLabel?.adjustsFontSizeToFitWidth = true
+        //create new label element and add it to cell
         let label = UILabel(frame: CGRect(x:20, y:50, width:200, height:25))
-       // let label = UILabel()
         label.text = object.author
         label.font = UIFont(name: "GillSans-Italic", size: 10)
         cell.addSubview(label)
-        cell.imageView?.frame = CGRectMake( 0, 0, 50, 55 );
-        cell.sizeToFit()
-      
         return cell
     }
 }

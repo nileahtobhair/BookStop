@@ -15,7 +15,7 @@
 		7A8662771BE3ED700002D494 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662761BE3ED700002D494 /* BookTests.swift */; };
 		7A8662821BE3ED700002D494 /* BookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662811BE3ED700002D494 /* BookUITests.swift */; };
 		7A8662931BE41C270002D494 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662921BE41C270002D494 /* Book.swift */; };
-		7A86FB301BE7F96B00E476D1 /* projectAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A86FB2F1BE7F96B00E476D1 /* projectAssets.xcassets */; };
+		7A86FB321BE8497900E476D1 /* projectAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A86FB311BE8497900E476D1 /* projectAssets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		7A8662811BE3ED700002D494 /* BookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookUITests.swift; sourceTree = "<group>"; };
 		7A8662831BE3ED700002D494 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A8662921BE41C270002D494 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		7A86FB2F1BE7F96B00E476D1 /* projectAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = projectAssets.xcassets; sourceTree = "<group>"; };
+		7A86FB311BE8497900E476D1 /* projectAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = projectAssets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 		7A8662531BE3ED700002D494 = {
 			isa = PBXGroup;
 			children = (
-				7A86FB2F1BE7F96B00E476D1 /* projectAssets.xcassets */,
+				7A86FB311BE8497900E476D1 /* projectAssets.xcassets */,
 				7A86625E1BE3ED700002D494 /* Book */,
 				7A8662751BE3ED700002D494 /* BookTests */,
 				7A8662801BE3ED700002D494 /* BookUITests */,
@@ -236,7 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A86626C1BE3ED700002D494 /* LaunchScreen.storyboard in Resources */,
-				7A86FB301BE7F96B00E476D1 /* projectAssets.xcassets in Resources */,
+				7A86FB321BE8497900E476D1 /* projectAssets.xcassets in Resources */,
 				7A8662671BE3ED700002D494 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
