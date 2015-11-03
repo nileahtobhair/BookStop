@@ -31,31 +31,22 @@ class DetailViewController: UIViewController {
         // Update the ui
         if let detail = self.detailItem {
             if let label = self.detailDescriptionLabel {
-                label.adjustsFontSizeToFitWidth = true
-                label.sizeToFit()
                 label.text = detail.author
                 label.font = UIFont(name: "Baskerville-SemiBoldItalic", size: 20)
-                label.minimumScaleFactor = 0.5
+                label.adjustsFontSizeToFitWidth = true
             }
             if let label = self.priceLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.text = "Price     :  "+String(detail.price/100) + "      (" + detail.currencyCode + ")"
-                label.sizeToFit()
-                label.minimumScaleFactor = 0.5
             }
             if let label = self.isbnLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.text = "ISBN: "+detail.isbn
                 label.font = UIFont(name: "AvenirNext-Regular", size: 20)
-               // label.minimumScaleFactor = 0.5
             }
             if let label = self.bookTitleLabel {
-                //AvenirNextCondensed-UltraLight
-                label.adjustsFontSizeToFitWidth = true
                 label.text = detail.title
-                label.font = UIFont(name: "AvenirNext-Regular", size: 30)
-                label.numberOfLines = 0
-              //  label.sizeToFit()
+                label.adjustsFontSizeToFitWidth = true
             }
             if let _ = self.imageView {
                 if let url = NSURL(string: detail.imageUrl) {
@@ -65,7 +56,6 @@ class DetailViewController: UIViewController {
                     }
                 }
             }
-            
         }
     }
     
