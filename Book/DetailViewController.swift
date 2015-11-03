@@ -24,15 +24,13 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     
     var detailItem: Book? {
-        didSet {
-            // Update the view.
-            print("setting label in detail view")
+        didSet { //update view when items in bookshelf changed
             self.configureView()
         }
     }
     
     func configureView() {
-        // Update the user interface for the detail item.
+        // Update the ui
         if let detail = self.detailItem {
             if let label = self.detailDescriptionLabel {
                 label.adjustsFontSizeToFitWidth = true
@@ -59,6 +57,8 @@ class DetailViewController: UIViewController {
             if let label = self.bookTitleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.text = detail.title
+                label.numberOfLines = 0
+                label.sizeToFit()
                 
             }
             if let _ = self.imageView {
@@ -66,18 +66,6 @@ class DetailViewController: UIViewController {
                     if let data = NSData(contentsOfURL: url){
                         imageView.contentMode = UIViewContentMode.ScaleAspectFit
                         imageView.image = UIImage(data: data)
-                            
-                        print(url)
-                        if (imageView.image != nil){
-                            print("there's an image")
-                        }
-                        else{
-                            print("no image found")
-                        }
-                       
-                    }
-                    else{
-                        print("no image found")
                     }
                 }
             }
@@ -87,15 +75,8 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
+
 }
 
