@@ -15,8 +15,8 @@ struct Book{
     var isbn: String
     var currencyCode: String
     var imageUrl: String
-    var price: Double
-    var description: String
+    var price: String
+    var description: String!
     
 }
 
@@ -29,7 +29,7 @@ class MasterViewController: UITableViewController {
     //func to populate the book shelf with books from the BookServerAPI
     func bookModel()  {
         let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithURL(NSURL(string: "http://private-anon-6e95240a2-tpbookserver.apiary-mock.com/books")!, completionHandler: { (data: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
+        let dataTask = session.dataTaskWithURL(NSURL(string: "http://tpbookserver.herokuapp.com/books")!, completionHandler: { (data: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
             if let unwrappedError = error {
                 print("error=\(unwrappedError)")
             }
@@ -38,15 +38,42 @@ class MasterViewController: UITableViewController {
                     do {
                         self.listOfBooks = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! NSMutableArray
                         for book in self.listOfBooks{
-                            self.insertNewObject(Book(author: book["author"] as! String,
-                                title: book["title"] as! String,
-                                id: String(book["id"]!!),
-                                isbn:book["isbn"] as! String,
-                                currencyCode:book["currencyCode"] as! String,
-                                imageUrl:"http://covers.openlibrary.org/b/isbn/" + (book["isbn"] as! String) + "-L.jpg",
-                                price:book["price"] as! Double,
-                                description:"")
-                            )
+                            print(String(book["id"]!!))
+                            
+                            let session2 = NSURLSession.sharedSession()
+                            let dataTask2 = session2.dataTaskWithURL(NSURL(string: "http://tpbookserver.herokuapp.com/book/"+String(book["id"]!!))!, completionHandler: { (dataAPI: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
+                            if let unwrappedError = error {
+                                print("error=\(unwrappedError)")
+                            }
+                            else{
+                                if var _ = dataAPI{
+                                    do {
+                                        let JSON = try NSJSONSerialization.JSONObjectWithData(dataAPI!, options: [])
+                                        //format book price
+                                        print(JSON)
+                                        let format = NSNumberFormatter()
+                                        format.currencyCode = book["currencyCode"] as! String
+                                        format.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+                                        let amount = format.stringFromNumber((book["price"] as! Double)/100)
+                              //          print(String(JSON["description"]!!))
+                                        self.insertNewObject(Book(author: book["author"] as! String,
+                                                title: book["title"] as! String,
+                                                id: String(book["id"]!!),
+                                                isbn:book["isbn"] as! String,
+                                                currencyCode:book["currencyCode"] as! String,
+                                                imageUrl:"http://covers.openlibrary.org/b/isbn/" + (book["isbn"] as! String) + "-L.jpg",
+                                                price:amount!,
+                                                description:String(JSON["description"]!))
+                                            )
+                                    } catch {
+                                        print(error)
+                                    }
+                                }
+                            }
+                        })
+                        
+                        dataTask2.resume()
+                            
                         }
                         self.tableView.reloadData()
                     } catch {
@@ -57,6 +84,7 @@ class MasterViewController: UITableViewController {
         })
         dataTask.resume()
     } // end of bookModel
+
     
     //on startup
     override func viewDidLoad() {
