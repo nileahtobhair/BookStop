@@ -163,14 +163,16 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description " textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="21" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pAq-wK-ZI5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description " textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="21" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAq-wK-ZI5">
                                 <rect key="frame" x="28" y="379" width="544" height="213"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="189" id="7xe-pp-WqQ">
                                         <variation key="widthClass=regular" constant="204"/>
                                     </constraint>
                                     <constraint firstAttribute="height" constant="213" id="GZe-Ip-bRg"/>
-                                    <constraint firstAttribute="height" constant="224" id="HCr-8v-Tme"/>
+                                    <constraint firstAttribute="height" constant="224" id="HCr-8v-Tme">
+                                        <variation key="widthClass=compact" constant="216"/>
+                                    </constraint>
                                     <constraint firstAttribute="height" constant="394" id="LQ3-cZ-0md"/>
                                     <constraint firstAttribute="height" constant="154" id="TBw-WF-5xc"/>
                                     <constraint firstAttribute="height" constant="361" id="U3Y-Xa-tzs"/>
@@ -813,7 +815,9 @@
                             <constraint firstItem="pAq-wK-ZI5" firstAttribute="trailing" secondItem="EBT-ID-Ok4" secondAttribute="trailing" id="cW8-4w-dwV"/>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="top" secondItem="2Wn-5i-9Ay" secondAttribute="bottom" constant="43" id="cYQ-ob-D56"/>
                             <constraint firstItem="EBT-ID-Ok4" firstAttribute="height" secondItem="8fx-gG-uVq" secondAttribute="height" id="ccJ-sR-tOt"/>
-                            <constraint firstItem="pAq-wK-ZI5" firstAttribute="top" secondItem="Zsk-V8-W4N" secondAttribute="bottom" id="cdk-Sh-7hj"/>
+                            <constraint firstItem="pAq-wK-ZI5" firstAttribute="top" secondItem="Zsk-V8-W4N" secondAttribute="bottom" id="cdk-Sh-7hj">
+                                <variation key="widthClass=compact" constant="8"/>
+                            </constraint>
                             <constraint firstItem="pAq-wK-ZI5" firstAttribute="top" secondItem="Zsk-V8-W4N" secondAttribute="bottom" constant="8" symbolic="YES" id="ciq-AA-qiG"/>
                             <constraint firstItem="pAq-wK-ZI5" firstAttribute="leading" secondItem="EBT-ID-Ok4" secondAttribute="leading" id="cpI-C9-yRb"/>
                             <constraint firstItem="8fx-gG-uVq" firstAttribute="top" secondItem="2Wn-5i-9Ay" secondAttribute="bottom" constant="8" symbolic="YES" id="cvh-Sr-7ZJ"/>
@@ -2864,7 +2868,7 @@
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DjV-YW-jjY">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>

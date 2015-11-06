@@ -36,7 +36,6 @@ class DetailViewController: UIViewController {
         if let detail = self.detailItem {
             if let label = self.detailDescriptionLabel {
                 label.text = detail.author
-              //  label.font = UIFont(name: "Baskerville-SemiBoldItalic", size: 20)
                 label.adjustsFontSizeToFitWidth = true
             }
             if let label = self.priceLabel {
@@ -46,15 +45,16 @@ class DetailViewController: UIViewController {
             if let label = self.isbnLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.text = "ISBN: "+detail.isbn
-             //   label.font = UIFont(name: "AvenirNext-Regular", size: 20)
             }
             if let label = self.bookTitleLabel {
                 label.text = detail.title
                 label.adjustsFontSizeToFitWidth = true
             }
             if let label = self.bookDescription {
-                label.text = detail.description
                 label.adjustsFontSizeToFitWidth = true
+                label.text = detail.description
+                
+               // label.adjustsFontSizeToFitWidth = true
             }
             if let _ = self.imageView {
                 if let url = NSURL(string: detail.imageUrl) {

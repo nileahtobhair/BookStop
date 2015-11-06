@@ -38,7 +38,7 @@ class MasterViewController: UITableViewController {
                     do {
                         self.listOfBooks = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! NSMutableArray
                         for book in self.listOfBooks{
-                            print(String(book["id"]!!))
+                           // print(String(book["id"]!!))
                             
                             let session2 = NSURLSession.sharedSession()
                             let dataTask2 = session2.dataTaskWithURL(NSURL(string: "http://tpbookserver.herokuapp.com/book/"+String(book["id"]!!))!, completionHandler: { (dataAPI: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
@@ -50,11 +50,27 @@ class MasterViewController: UITableViewController {
                                     do {
                                         let JSON = try NSJSONSerialization.JSONObjectWithData(dataAPI!, options: [])
                                         //format book price
-                                        print(JSON)
+                                        //print(JSON)
                                         let format = NSNumberFormatter()
                                         format.currencyCode = book["currencyCode"] as! String
                                         format.numberStyle = NSNumberFormatterStyle.CurrencyStyle
                                         let amount = format.stringFromNumber((book["price"] as! Double)/100)
+                                        if let blurbs = (JSON["description"]!){
+                                           // print(blurb)
+                                            
+                                        }
+                                        
+                                        let blur = JSON["description"]!
+                                        var description:String
+                                        
+                                        if blur == nil{
+                                          //  print("it's nil")
+                                            description = ""
+                                        }
+                                        else{
+                                            //print(blur!)
+                                            description = String(blur!)
+                                        }
                               //          print(String(JSON["description"]!!))
                                         self.insertNewObject(Book(author: book["author"] as! String,
                                                 title: book["title"] as! String,
@@ -63,7 +79,7 @@ class MasterViewController: UITableViewController {
                                                 currencyCode:book["currencyCode"] as! String,
                                                 imageUrl:"http://covers.openlibrary.org/b/isbn/" + (book["isbn"] as! String) + "-L.jpg",
                                                 price:amount!,
-                                                description:String(JSON["description"]!))
+                                                description:description)
                                             )
                                     } catch {
                                         print(error)
@@ -71,11 +87,10 @@ class MasterViewController: UITableViewController {
                                 }
                             }
                         })
-                        
                         dataTask2.resume()
                             
                         }
-                        self.tableView.reloadData()
+                      
                     } catch {
                         print(error)
                     }
@@ -83,12 +98,27 @@ class MasterViewController: UITableViewController {
             }
         })
         dataTask.resume()
+        dispatch_async(dispatch_get_main_queue(), {
+            print("reloading table")
+            self.tableView.reloadData()
+        })
+      print("finished")
     } // end of bookModel
-
+    override func viewWillAppear(animated: Bool) {
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        super.viewWillAppear(animated)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     //on startup
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
@@ -96,15 +126,14 @@ class MasterViewController: UITableViewController {
         bookModel()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
-        super.viewWillAppear(animated)
-    }
+   
    
     func insertNewObject(sender: Book) {
         bookShelf.insert(sender, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        // self.tableView.reloadData()
+      
     }
     
     //change controller, view
@@ -120,6 +149,9 @@ class MasterViewController: UITableViewController {
             }
         }
     }
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookShelf.count
@@ -128,7 +160,7 @@ class MasterViewController: UITableViewController {
     //insert new book into tableView
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         self.tableView.separatorStyle = .None  //remove seperator lines in table
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         let object = bookShelf[indexPath.row]
         cell.textLabel!.text = object.title
         cell.textLabel?.adjustsFontSizeToFitWidth = true
@@ -138,6 +170,15 @@ class MasterViewController: UITableViewController {
         label.font = UIFont(name: "GillSans-Italic", size: 10)
         cell.addSubview(label)
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            bookShelf.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
     }
 }
 
