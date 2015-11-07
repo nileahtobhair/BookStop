@@ -51,18 +51,13 @@ class DetailViewController: UIViewController {
                 label.adjustsFontSizeToFitWidth = true
             }
             if let label = self.bookDescription {
-                label.adjustsFontSizeToFitWidth = true
-                label.text = detail.description
-                
-               // label.adjustsFontSizeToFitWidth = true
+                    label.adjustsFontSizeToFitWidth = true
+                    label.text = detail.description
+                    label.textAlignment = NSTextAlignment.Justified 
             }
-            if let _ = self.imageView {
-                if let url = NSURL(string: detail.imageUrl) {
-                    if let data = NSData(contentsOfURL: url){
-                        imageView.contentMode = UIViewContentMode.ScaleAspectFit
-                        imageView.image = UIImage(data: data)
-                    }
-                }
+            if let cover = self.imageView {
+                cover.contentMode = UIViewContentMode.ScaleAspectFit
+                cover.image = detail.coverImage
             }
         }
     }
@@ -71,6 +66,5 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         self.configureView()
     }
-
 }
 

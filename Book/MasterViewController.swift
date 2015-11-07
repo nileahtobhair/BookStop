@@ -14,7 +14,7 @@ struct Book{
     var id:String
     var isbn: String
     var currencyCode: String
-    var imageUrl: String
+    var coverImage: UIImage
     var price: String
     var description: String!
     
@@ -38,59 +38,59 @@ class MasterViewController: UITableViewController {
                     do {
                         self.listOfBooks = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! NSMutableArray
                         for book in self.listOfBooks{
-                           // print(String(book["id"]!!))
                             
                             let session2 = NSURLSession.sharedSession()
-                            let dataTask2 = session2.dataTaskWithURL(NSURL(string: "http://tpbookserver.herokuapp.com/book/"+String(book["id"]!!))!, completionHandler: { (dataAPI: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
-                            if let unwrappedError = error {
-                                print("error=\(unwrappedError)")
-                            }
-                            else{
+                            let individualBookTask = session2.dataTaskWithURL(NSURL(string: "http://tpbookserver.herokuapp.com/book/"+String(book["id"]!!))!, completionHandler: { (dataAPI: NSData?, response:NSURLResponse?, error: NSError?) -> Void in
                                 if var _ = dataAPI{
                                     do {
                                         let JSON = try NSJSONSerialization.JSONObjectWithData(dataAPI!, options: [])
+                                        
                                         //format book price
-                                        //print(JSON)
                                         let format = NSNumberFormatter()
                                         format.currencyCode = book["currencyCode"] as! String
                                         format.numberStyle = NSNumberFormatterStyle.CurrencyStyle
                                         let amount = format.stringFromNumber((book["price"] as! Double)/100)
-                                        if let blurbs = (JSON["description"]!){
-                                           // print(blurb)
-                                            
+                                       
+                                        //get the book cover image from the bookCovers API
+                                        var image: UIImage!
+                                        if let url = NSURL(string: "http://covers.openlibrary.org/b/isbn/" + (book["isbn"] as! String) + "-L.jpg") {
+                                            if let data = NSData(contentsOfURL: url){
+                                                image = UIImage(data: data)!
+                                                if image != nil{
+                                                    image = image!
+                                                }
+                                            }
                                         }
-                                        
+                                        //parse the description string from the JSON
                                         let blur = JSON["description"]!
-                                        var description:String
-                                        
-                                        if blur == nil{
-                                          //  print("it's nil")
-                                            description = ""
-                                        }
-                                        else{
-                                            //print(blur!)
+                                        var description:String = ""
+                                        if blur != nil{
                                             description = String(blur!)
                                         }
-                              //          print(String(JSON["description"]!!))
+                                        //add a new book to the bookShelf using API information
+                                        dispatch_async(dispatch_get_main_queue(), {
+                                            print("reloading table")
+                                            self.tableView.reloadData()
+                                        
                                         self.insertNewObject(Book(author: book["author"] as! String,
                                                 title: book["title"] as! String,
                                                 id: String(book["id"]!!),
                                                 isbn:book["isbn"] as! String,
                                                 currencyCode:book["currencyCode"] as! String,
-                                                imageUrl:"http://covers.openlibrary.org/b/isbn/" + (book["isbn"] as! String) + "-L.jpg",
+                                                coverImage:image,
                                                 price:amount!,
                                                 description:description)
                                             )
+                        
+                                        print("finished round")
+                                      })
                                     } catch {
                                         print(error)
                                     }
                                 }
-                            }
                         })
-                        dataTask2.resume()
-                            
+                        individualBookTask.resume()
                         }
-                      
                     } catch {
                         print(error)
                     }
@@ -98,11 +98,7 @@ class MasterViewController: UITableViewController {
             }
         })
         dataTask.resume()
-        dispatch_async(dispatch_get_main_queue(), {
-            print("reloading table")
-            self.tableView.reloadData()
-        })
-      print("finished")
+     
     } // end of bookModel
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
@@ -116,6 +112,7 @@ class MasterViewController: UITableViewController {
     
     //on startup
     override func viewDidLoad() {
+        tableView.reloadData()
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
@@ -126,8 +123,6 @@ class MasterViewController: UITableViewController {
         bookModel()
     }
     
-   
-   
     func insertNewObject(sender: Book) {
         bookShelf.insert(sender, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -159,16 +154,16 @@ class MasterViewController: UITableViewController {
     
     //insert new book into tableView
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let label = UILabel(frame: CGRect(x:20, y:50, width:200, height:25))
         self.tableView.separatorStyle = .None  //remove seperator lines in table
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        cell.subviews.last?.removeFromSuperview()
         let object = bookShelf[indexPath.row]
-        cell.textLabel!.text = object.title
-        cell.textLabel?.adjustsFontSizeToFitWidth = true
-        //create new label element and add it to cell
-        let label = UILabel(frame: CGRect(x:20, y:50, width:200, height:25))
         label.text = object.author
         label.font = UIFont(name: "GillSans-Italic", size: 10)
         cell.addSubview(label)
+        cell.textLabel!.text = object.title
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }
     

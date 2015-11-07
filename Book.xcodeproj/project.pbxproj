@@ -14,7 +14,6 @@
 		7A86626C1BE3ED700002D494 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A86626A1BE3ED700002D494 /* LaunchScreen.storyboard */; };
 		7A8662771BE3ED700002D494 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662761BE3ED700002D494 /* BookTests.swift */; };
 		7A8662821BE3ED700002D494 /* BookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662811BE3ED700002D494 /* BookUITests.swift */; };
-		7A8662931BE41C270002D494 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8662921BE41C270002D494 /* Book.swift */; };
 		7A86FB321BE8497900E476D1 /* projectAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A86FB311BE8497900E476D1 /* projectAssets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +48,6 @@
 		7A86627D1BE3ED700002D494 /* BookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8662811BE3ED700002D494 /* BookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookUITests.swift; sourceTree = "<group>"; };
 		7A8662831BE3ED700002D494 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A8662921BE41C270002D494 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		7A86FB311BE8497900E476D1 /* projectAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = projectAssets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,10 +101,9 @@
 			isa = PBXGroup;
 			children = (
 				7A86625F1BE3ED700002D494 /* AppDelegate.swift */,
-				7A8662611BE3ED700002D494 /* MasterViewController.swift */,
 				7A8662631BE3ED700002D494 /* DetailViewController.swift */,
 				7A8662651BE3ED700002D494 /* Main.storyboard */,
-				7A8662921BE41C270002D494 /* Book.swift */,
+				7A8662611BE3ED700002D494 /* MasterViewController.swift */,
 				7A86626A1BE3ED700002D494 /* LaunchScreen.storyboard */,
 				7A86626D1BE3ED700002D494 /* Info.plist */,
 			);
@@ -262,7 +259,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A8662931BE41C270002D494 /* Book.swift in Sources */,
 				7A8662641BE3ED700002D494 /* DetailViewController.swift in Sources */,
 				7A8662621BE3ED700002D494 /* MasterViewController.swift in Sources */,
 				7A8662601BE3ED700002D494 /* AppDelegate.swift in Sources */,
