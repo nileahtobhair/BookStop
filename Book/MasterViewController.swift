@@ -69,7 +69,6 @@ class MasterViewController: UITableViewController {
                                         }
                                         //add a new book to the bookShelf using API information
                                         dispatch_async(dispatch_get_main_queue(), {
-                                            print("reloading table")
                                             self.tableView.reloadData()
                                         
                                         self.insertNewObject(Book(author: book["author"] as! String,
@@ -81,8 +80,6 @@ class MasterViewController: UITableViewController {
                                                 price:amount!,
                                                 description:description)
                                             )
-                        
-                                        print("finished round")
                                       })
                                     } catch {
                                         print(error)
