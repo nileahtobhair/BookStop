@@ -97,6 +97,8 @@ class MasterViewController: UITableViewController {
         dataTask.resume()
      
     } // end of bookModel
+    
+    
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
